@@ -1,3 +1,14 @@
+# Cafe Sales Data Cleaning Project
+
+This project demonstrates practical data cleaning and standardization skills using Excel on a real-world messy dataset.
+
+## Key Skills Demonstrated
+- Handling missing values
+- Data standardization
+- Data reconstruction
+- Data preparation for analysis
+
+
 OVERVIEW:
    This project focuses on cleaning and standardizing a raw cafe sales dataset to improve data quality and prepare it for further analysis.
 
