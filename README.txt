@@ -1,89 +1,111 @@
-# Cafe Sales Data Cleaning Project
+# Data Cleaning & Reconstruction Project
 
-This project demonstrates practical data cleaning and standardization skills using Excel on a real-world messy dataset.
+# Overview
+This project focuses on cleaning, standardizing, and reconstructing a transactional dataset consisting of ~10,001 rows and 8 columns.
 
-## Key Skills Demonstrated
-- Handling missing values
-- Data standardization
-- Data reconstruction
-- Data preparation for analysis
+The raw dataset contained inconsistent formatting, disorganized column structures, and missing values across several key fields. The goal of this project was to transform the dataset into a clean, structured, and analysis-ready format using rule-based data cleaning and logical reconstruction techniques.
 
+---
 
-OVERVIEW:
-   This project focuses on cleaning and standardizing a raw cafe sales dataset to improve data quality and prepare it for further analysis.
+## Dataset Structure
 
-2. IDENTIFIED ISSUES IN RAW DATASET:
-   Several data quality issues were identified in the original dataset:
+The cleaned dataset contains the following columns:
 
-	Inconsistent Column Formatting
+  * transaction_id
+  * item
+  * quantity
+  * price_per_item
+  * total_spent
+  * payment_method
+  * location
+  * transaction_date
 
-		-Column widths were not properly adjusted, making the dataset difficult to read.
+---
 
-	Unstandardized Column Names
+## Data Cleaning Process
 
-		-Column names were inconsistent in formatting (e.g., spacing, capitalization).
+	1. Column Standardization
+      The original dataset had messy and inconsistent column formatting. The following steps were applied:
 
-	Missing Values
+		* Reorganized columns using Excel shortcuts:
+		
+		  * `Alt + H + O + A` (AutoFit Column Width)
+		  * `Alt + H + O + I` (AutoFit Row Height)
+		  * Trimmed unnecessary spaces
+		  * Converted all column headers to lowercase
+		  * Replaced spaces with underscores (`_`) for consistency
 
-		-Several columns contained missing values, particularly:
+---
 
-		   >quantity
+	2. Handling Missing Values
 
-		   >price_per_unit
+		# Numerical Reconstruction
 
-		   >total_spent
+			Missing values in numerical columns were reconstructed using mathematical relationships:
+			
+			* `total_spent = price_per_item × quantity`
+			
+			Reconstruction logic:
+			
+			* Missing `price_per_item` → calculated using `total_spent / quantity`
+			* Missing `quantity` → calculated using `total_spent / price_per_item`
 
-	Unsorted Data
+---
 
-		-Transaction records were not ordered, reducing readability and usability.
+		# Item-Based Imputation
 
-3. Data Cleaning & Transformation Steps
-   The following steps were performed to address the issues:
+			* Identified that identical items tend to have consistent pricing
+			* Missing `price_per_item` values were filled using known prices from the same item in other rows
 
-	Improving Readability
+---
 
-		-Adjusted column widths to fit content for better visibility and usability.
+# Unrecoverable Cases
+Some data could not be reconstructed due to insufficient information:
 
-	Standardizing Column Names
+	* Rows where both `quantity` and `total_spent` were missing
+	* Cases where multiple items shared identical prices, making reverse identification unreliable
+	
+	These values were left as missing to preserve data integrity.
 
-		-Applied consistent naming conventions:
+---
 
-		   >Removed unnecessary spaces using TRIM()
+# Key Insights
 
-		   >Standardized capitalization using PROPER()
+	* Mathematical relationships are effective for recovering missing numerical values
+	* Item-based imputation works well but depends on data consistency
+	* Price alone is not a unique identifier for items
+	* Some level of data loss is unavoidable in incomplete datasets
 
-		   >Replaced spaces with underscores (_) for better compatibility in analysis tools
+---
 
-	Handling Missing Values
+# Output
 
-		-Reconstructed missing values where possible:
-			>total_spent = quantity × price_per_unit
-			>quantity = total_spent / price_per_unit
-			>price_per_unit = total_spent / quantity
-	This approach was used to preserve as much data as possible without removing rows.
-	Some values remain missing due to insufficient data.
+	* Cleaned and standardized dataset
+	* Reconstructed missing values where logically possible
+	* Remaining missing values clearly identified
 
-Note:
-Future improvement: missing price_per_unit values can be inferred using lookup methods (e.g., Excel XLOOKUP or VLOOKUP) based on similar item names
+---
 
+# Future Improvements
 
-	Sorting Data
+	* Implement automated cleaning using Python (Pandas)
+	* Apply advanced imputation techniques (e.g., statistical or ML-based)
+	* Add validation checks to detect anomalies after reconstruction
 
-		-Sorted dataset by transaction_date to improve structure and analytical readiness
+---
 
-4. Results
+#Author Notes
+This project emphasizes practical problem-solving in real-world messy data scenarios.
+All cleaning and reconstruction steps were performed using rule-based logic and manual validation to ensure consistency and reliability.
 
-	After cleaning:
+---
 
-		-Dataset is more structured and readable
+# Tools Used
 
-		-Column naming is consistent and analysis-friendly
+* Microsoft Excel
 
-		-Missing values have been partially resolved
+---
 
-		-Data is now better organized for further analysis using tools such as Excel, SQL, or Python
+# Closing
 
-5. Future Improvements
-   Implement lookup techniques (e.g., XLOOKUP) to further reduce missing values
-   Perform validation checks for data consistency
-   Extend analysis to extract business insights (e.g., sales trends, top-selling items)
+This project demonstrates the ability to handle raw, unstructured data and transform it into a reliable dataset ready for analysis.
